@@ -17,4 +17,10 @@ COPY plugins /usr/share/jenkins/ref/plugins
 #adding predefined user admin
 COPY users /usr/share/jenkins/ref/users
 
+#adding predefined jobs
+COPY jobs /usr/share/jenkins/ref/jobs
+
+#adding predefined config
+COPY config.xml /usr/share/jenkins/ref/config.xml
+
 VOLUME ["/var/jenkins_home", "/usr/share/jenkins/ref/"]
