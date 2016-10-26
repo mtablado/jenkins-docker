@@ -1,0 +1,19 @@
+version: '2'
+services:
+    jenkins-data:
+        build: 
+            context: ./jenkins-data
+        volumes:
+        - /c/Users/jenkins:/home/jenkins
+        container_name: jenkins-data
+    jenkins-app:
+        build: 
+            context: ./jenkins-app
+        depends_on:
+        - jenkins-data
+        volumes_from:
+        - jenkins-data
+        ports:
+        - "50000:50000"
+        - "8080:8080"
+        container_name: jenkins-app
