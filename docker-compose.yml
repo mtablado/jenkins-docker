@@ -4,7 +4,7 @@ services:
         build: 
             context: ./jenkins-data
         volumes:
-        - /c/Users/jenkins:/home/jenkins
+        - /c/Users/jenkins:/var/jenkins_home
         container_name: jenkins-data
     jenkins-app:
         build: 
