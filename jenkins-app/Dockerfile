@@ -3,6 +3,7 @@ FROM openjdk:8-jdk
 RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
 
 ENV JENKINS_HOME /var/jenkins_home
+ENV JENKINS_USER_HOME /home/jenkins
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
 ARG user=jenkins
@@ -14,7 +15,7 @@ ARG gid=1000
 # If you bind mount a volume from the host or a data container, 
 # ensure you use the same uid
 RUN groupadd -g ${gid} ${group} \
-    && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+    && useradd -d "$JENKINS_USER_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
 # Jenkins home directory is a volume, so configuration and build history 
 # can be persisted and survive image upgrades
@@ -50,7 +51,12 @@ RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
   && echo "${JENKINS_SHA}  /usr/share/jenkins/jenkins.war" | sha1sum -c -
 
 ENV JENKINS_UC https://updates.jenkins.io
-RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
+RUN chown -R ${user} "$JENKINS_HOME" "$JENKINS_USER_HOME" /usr/share/jenkins/ref
+
+RUN ls -lia "$JENKINS_USER_HOME"
+#	&& mkdir "$JENKINS_USER_HOME"/.ssh \
+#	&& cp /usr/share/jenkins/ref/.ssh "$JENKINS_USER_HOME"/.ssh \
+#	&& chmod -Rc 700 "$JENKINS_USER_HOME"/.ssh
 
 # for main web interface:
 EXPOSE 8080
@@ -73,3 +79,4 @@ COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 #COPY plugins.txt /tmp/active.txt
 #RUN plugins.sh /tmp/active.txt
+

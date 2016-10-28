@@ -4,8 +4,9 @@ services:
         build: 
             context: ./jenkins-data
         volumes:
-        - /c/Users/jenkins:/home/jenkins
+        - /c/Users/jenkins:/var/jenkins_home
         container_name: jenkins-data
+
     jenkins-app:
         build: 
             context: ./jenkins-app
@@ -17,3 +18,13 @@ services:
         - "50000:50000"
         - "8080:8080"
         container_name: jenkins-app
+
+    bitbucket:
+        build:
+            context: ./local-bitbucket
+        volumes:
+        - /c/Users/bitbucket:/var/atlassian/application-data/bitbucket
+        ports:
+        - "7990:7990"
+        - "7999:7999"
+        container_name: bitbucket
