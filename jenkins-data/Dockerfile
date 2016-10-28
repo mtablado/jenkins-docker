@@ -22,5 +22,12 @@ COPY jobs /usr/share/jenkins/ref/jobs
 
 #adding predefined config
 COPY config.xml /usr/share/jenkins/ref/config.xml
+COPY hudson.plugins.git.GitSCM.xml /usr/share/jenkins/ref/hudson.plugins.git.GitSCM.xml
+COPY credentials.xml /usr/share/jenkins/ref/credentials.xml
+
+# This ssh files are will be moved to jenkins user home 
+# (and removed from jenkins app home) at jenkins.sh script.
+COPY ssh/id_rsa /usr/share/jenkins/ref/.ssh/
+COPY ssh/id_rsa.pub /usr/share/jenkins/ref/.ssh/
 
 VOLUME ["/var/jenkins_home", "/usr/share/jenkins/ref/"]
