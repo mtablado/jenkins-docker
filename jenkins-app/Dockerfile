@@ -53,11 +53,6 @@ RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
 ENV JENKINS_UC https://updates.jenkins.io
 RUN chown -R ${user} "$JENKINS_HOME" "$JENKINS_USER_HOME" /usr/share/jenkins/ref
 
-RUN ls -lia "$JENKINS_USER_HOME"
-#	&& mkdir "$JENKINS_USER_HOME"/.ssh \
-#	&& cp /usr/share/jenkins/ref/.ssh "$JENKINS_USER_HOME"/.ssh \
-#	&& chmod -Rc 700 "$JENKINS_USER_HOME"/.ssh
-
 # for main web interface:
 EXPOSE 8080
 
