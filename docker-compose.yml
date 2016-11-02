@@ -28,3 +28,10 @@ services:
         - "7990:7990"
         - "7999:7999"
         container_name: bitbucket
+
+    artifactory:
+        image: mattgruter/artifactory
+        volumes:
+        - /c/Users/artifactory:/artifactory
+        ports:
+        - "8081:8080"
