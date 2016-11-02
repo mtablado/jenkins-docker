@@ -30,7 +30,8 @@ services:
         container_name: bitbucket
 
     artifactory:
-        image: mattgruter/artifactory
+        build:
+            context: ./local-artifactory
         volumes:
         - /c/Users/artifactory:/artifactory
         ports:
