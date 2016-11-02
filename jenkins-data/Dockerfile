@@ -23,6 +23,7 @@ COPY jobs /usr/share/jenkins/ref/jobs
 #adding predefined config
 COPY config.xml /usr/share/jenkins/ref/config.xml
 COPY hudson.plugins.git.GitSCM.xml /usr/share/jenkins/ref/hudson.plugins.git.GitSCM.xml
+COPY org.jfrog.hudson.ArtifactoryBuilder.xml /usr/share/jenkins/ref/org.jfrog.hudson.ArtifactoryBuilder.xml
 COPY credentials.xml /usr/share/jenkins/ref/credentials.xml
 
 # This ssh files are will be moved to jenkins user home 
