@@ -29,10 +29,12 @@ services:
         - "7999:7999"
         container_name: bitbucket
 
-    artifactory:
-        build:
-            context: ./local-artifactory
+    artifactory-registry:
+        image: jfrog-docker-reg2.bintray.io/jfrog/artifactory-registry:latest
         volumes:
         - /c/Users/artifactory:/artifactory
         ports:
-        - "8081:8080"
+        - "8081:8081"
+        - "443:443"
+        - "80:80"
+        container_name: artifactory-registry
