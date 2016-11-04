@@ -32,9 +32,23 @@ folder(pipelineFolderName)
 def jobName = pipelineFolderName + separator + pipelineName
 pipelineJob(jobName) {
     definition {
-        cps {
-            script(readFileFromWorkspace('pruebas.groovy'))
-            sandbox()
+        cpsScm {
+			scm{
+				git{
+					branch("*/develop")
+					remote{
+						github("francescmorales/propertiesAndJenkinsFiles")
+					}
+				}
+			}
+            scriptPath("jenkinsfile")
         }
     }
 }
+
+def propsFile = new File("/var/jenkins_home/workspace/${pipelineFolderName}/properties/config.properties")
+propsFile.write("gitURL=${gitURL}")
+
+queue(jobName)
+
+// https://github.com/mtablado/jenkins-docker.git
