@@ -25,9 +25,6 @@ folder(pipelineFolderName)
 // Time to create Job.
 def jobName = pipelineFolderName + separator + pipelineName
 pipelineJob(jobName) {
-	triggers {
-        scm('H/15 * * * *')
-    }
     definition {
         cpsScm {
 			scm{
