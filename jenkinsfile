@@ -6,15 +6,12 @@ import jenkins.model.*
 
 node {
     stage('compile'){
-		def envs = readFile('/../properties/config.properties').split("\n")
-		echo "envs: ${envs}"
-		withEnv(envs){
-			git url: "${gitURL}", branch: '*/develop'
-        }
+		def envs = readProperties  file: "${WORKSPACE}/../properties/config.properties"
+		echo "envs: ${envs.gitURL}"
+		git url: "${envs.gitURL}", branch: '*/develop'
     }
     stage('Unit_test'){
         echo 'Hello World'
-        sh 'touch test'
         sh 'ls'
     }
     stage('QA_Sonar'){
@@ -26,8 +23,4 @@ node {
     stage('Deploy_to_Dev'){
         echo 'Hello World'     
     }
-}
-
-def readProperties(String propertiesFile){
-    return new Properties().load(new File(propertiesFile))
 }
