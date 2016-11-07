@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.7">
+  <actions/>
+  <description>Test to check that the (master) workspace is shared as a docker volume between jobs of the same pipe</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.19">
+    <script>node(&apos;docker-slave&apos;) {
+   stage(&apos;First&apos;) { // for display purposes
+        sh &apos;&apos;&apos;cat /etc/hosts
+        ifconfig
+        pwd
+        rm -f shared-file.txt
+        date &gt; shared-file.txt
+        ls -lia&apos;&apos;&apos;
+   }
+   stage(&apos;Second&apos;) {
+         sh &apos;&apos;&apos;cat /etc/hosts
+         ifconfig
+         ls -lia
+         pwd
+         cat shared-file.txt&apos;&apos;&apos;
+   }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>

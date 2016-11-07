@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.7">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.19">
+    <script>node(&apos;docker-slave&apos;) {
+    stage(&apos;Checking configuration&apos;) {
+        sh &apos;&apos;&apos;
+                cat /etc/hosts
+        echo DOCKER_OPTS=\$DOCKER_OPTS
+        docker --version
+        docker ps
+        &apos;&apos;&apos;
+    }
+    stage(&apos;Pull hello-world from internet&apos;) {
+        sh &apos;&apos;&apos;docker pull hello-world&apos;&apos;&apos;
+    }
+    stage(&apos;Docker login&apos;) {
+        sh &apos;&apos;&apos;docker login -u admin -p password docker-virtual.art.local&apos;&apos;&apos;
+    }
+    stage(&apos;Tag image for artifactory&apos;) {
+        sh &apos;&apos;&apos;docker tag hello-world docker-virtual.art.local/hello-world&apos;&apos;&apos;
+    }
+    stage(&apos;Push image to artifactory&apos;) {
+        sh &apos;&apos;&apos;docker push docker-virtual.art.local/hello-world&apos;&apos;&apos;
+    }
+    stage(&apos;Pull hello-world from artifactory&apos;) {
+        sh &apos;&apos;&apos;docker pull docker-virtual.art.local/hello-world&apos;&apos;&apos;
+    }
+   
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>
