@@ -31,7 +31,8 @@ pipelineJob(jobName) {
 				git{
 					branch("*/develop")
 					remote{
-						github("francescmorales/propertiesAndJenkinsFiles")
+						url("ssh://git@192.168.99.100:7999/ci/jenkins-files.git")
+						credentials("jenkins (Jenkins SSH key)")	
 					}
 				}
 			}
