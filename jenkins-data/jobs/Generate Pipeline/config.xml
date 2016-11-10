@@ -11,11 +11,10 @@
           <description>Select type of your pipeline</description>
           <choices class="java.util.Arrays$ArrayList">
             <a class="string-array">
+              <string>Bower component</string>
               <string>Microservice App</string>
               <string>Microservice Arq</string>
               <string>SPA</string>
-              <string>Bower Component</string>
-              <string>Maven library</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
