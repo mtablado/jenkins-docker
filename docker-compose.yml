@@ -4,7 +4,7 @@ services:
         build: 
             context: ./jenkins-data
         volumes:
-        - /c/Users/jenkins:/var/jenkins_home
+        - /docker-workspaces/jenkins:/var/jenkins_home
         container_name: jenkins-data
 
     jenkins-app:
@@ -18,21 +18,25 @@ services:
         - "50000:50000"
         - "8080:8080"
         container_name: jenkins-app
+        extra_hosts:
+        - "docker-virtual.art.local docker-dev-local2.art.local docker-prod-local2.art.local:192.168.99.100"
 
     bitbucket:
         build:
             context: ./local-bitbucket
         volumes:
-        - /c/Users/bitbucket:/var/atlassian/application-data/bitbucket
+        - /docker-workspaces/bitbucket:/var/atlassian/application-data/bitbucket
         ports:
         - "7990:7990"
         - "7999:7999"
         container_name: bitbucket
 
-    artifactory:
-        build:
-            context: ./local-artifactory
+    artifactory-registry:
+        image: jfrog-docker-reg2.bintray.io/jfrog/artifactory-registry:latest
         volumes:
-        - /c/Users/artifactory:/artifactory
+        - /docker-workspaces/artifactory:/artifactory
         ports:
-        - "8081:8080"
+        - "8081:8081"
+        - "443:443"
+        - "80:80"
+        container_name: artifactory
