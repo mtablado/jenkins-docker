@@ -1,14 +1,17 @@
+#!groovy
+import hudson.*
+import hudson.model.*
+import jenkins.*
+import jenkins.model.*
+
 node {
     stage('compile'){
-        echo 'Hello World'
-        def workspace = pwd()
-        echo "compile workspace=${workspace}"
-        sh 'touch compile'
-        sh 'ls'
+		def envs = readProperties  file: "${WORKSPACE}/../properties/config.properties"
+		echo "envs: ${envs.gitURL}"
+		git url: "${envs.gitURL}", branch: '*/develop'
     }
     stage('Unit_test'){
         echo 'Hello World'
-        sh 'touch test'
         sh 'ls'
     }
     stage('QA_Sonar'){
