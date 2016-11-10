@@ -19,6 +19,7 @@ services:
         - "8080:8080"
         container_name: jenkins-app
         extra_hosts:
+        - "jenkins-slave-1:192.168.99.101"
         - "docker-virtual.art.local docker-dev-local2.art.local docker-prod-local2.art.local:192.168.99.100"
 
     bitbucket:
