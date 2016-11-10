@@ -29,7 +29,7 @@
           <launcher class="com.nirima.jenkins.plugins.docker.launcher.DockerComputerSSHLauncher">
             <sshConnector plugin="ssh-slaves@1.11">
               <port>22</port>
-              <credentialsId>ce53f8c7-fb35-46a3-a1f3-f79cc7b190b0</credentialsId>
+              <credentialsId>6d89b817-897d-48dd-ad62-4929b5c6485b</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
@@ -38,7 +38,7 @@
           </launcher>
           <remoteFsMapping>/var/jenkins_home</remoteFsMapping>
           <remoteFs>/home/jenkins</remoteFs>
-          <instanceCap>10</instanceCap>
+          <instanceCap>1</instanceCap>
           <mode>NORMAL</mode>
           <retentionStrategy class="com.nirima.jenkins.plugins.docker.strategy.DockerOnceRetentionStrategy">
             <idleMinutes>10</idleMinutes>
@@ -69,8 +69,102 @@
           <removeVolumes>false</removeVolumes>
           <pullStrategy>PULL_LATEST</pullStrategy>
         </com.nirima.jenkins.plugins.docker.DockerTemplate>
+        <com.nirima.jenkins.plugins.docker.DockerTemplate>
+          <configVersion>2</configVersion>
+          <labelString>maven-image-builder</labelString>
+          <launcher class="com.nirima.jenkins.plugins.docker.launcher.DockerComputerSSHLauncher">
+            <sshConnector plugin="ssh-slaves@1.11">
+              <port>22</port>
+              <credentialsId>6d89b817-897d-48dd-ad62-4929b5c6485b</credentialsId>
+              <jvmOptions></jvmOptions>
+              <javaPath></javaPath>
+              <maxNumRetries>0</maxNumRetries>
+              <retryWaitTime>0</retryWaitTime>
+            </sshConnector>
+          </launcher>
+          <remoteFsMapping>/var/jenkins_home</remoteFsMapping>
+          <remoteFs>/home/jenkins</remoteFs>
+          <instanceCap>2</instanceCap>
+          <mode>NORMAL</mode>
+          <retentionStrategy class="com.nirima.jenkins.plugins.docker.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.nirima.jenkins.plugins.docker.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerTemplateBase>
+            <image>docker-virtual.art.local/maven-image-builder</image>
+            <dockerCommand>/jenkins-slave-startup.sh</dockerCommand>
+            <lxcConfString></lxcConfString>
+            <hostname></hostname>
+            <dnsHosts/>
+            <network></network>
+            <volumes>
+              <string>/tmp/.m2:/home/jenkins/.m2</string>
+            </volumes>
+            <volumesFrom2/>
+            <environment/>
+            <bindPorts></bindPorts>
+            <bindAllPorts>false</bindAllPorts>
+            <privileged>true</privileged>
+            <tty>false</tty>
+            <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+              <c class="list">
+                <string>docker-virtual.art.local:192.168.99.100</string>
+              </c>
+              <list reference="../c"/>
+            </extraHosts>
+          </dockerTemplateBase>
+          <removeVolumes>false</removeVolumes>
+          <pullStrategy>PULL_LATEST</pullStrategy>
+        </com.nirima.jenkins.plugins.docker.DockerTemplate>
+        <com.nirima.jenkins.plugins.docker.DockerTemplate>
+          <configVersion>2</configVersion>
+          <labelString>spa-image-builder</labelString>
+          <launcher class="com.nirima.jenkins.plugins.docker.launcher.DockerComputerSSHLauncher">
+            <sshConnector plugin="ssh-slaves@1.11">
+              <port>22</port>
+              <credentialsId>6d89b817-897d-48dd-ad62-4929b5c6485b</credentialsId>
+              <jvmOptions></jvmOptions>
+              <javaPath></javaPath>
+              <maxNumRetries>0</maxNumRetries>
+              <retryWaitTime>0</retryWaitTime>
+            </sshConnector>
+          </launcher>
+          <remoteFsMapping>/var/jenkins_home</remoteFsMapping>
+          <remoteFs>/home/jenkins</remoteFs>
+          <instanceCap>2</instanceCap>
+          <mode>NORMAL</mode>
+          <retentionStrategy class="com.nirima.jenkins.plugins.docker.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.nirima.jenkins.plugins.docker.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerTemplateBase>
+            <image>docker-virtual.art.local/spa-image-builder</image>
+            <dockerCommand>/jenkins-slave-startup.sh</dockerCommand>
+            <lxcConfString></lxcConfString>
+            <hostname></hostname>
+            <dnsHosts/>
+            <network></network>
+            <volumes/>
+            <volumesFrom2/>
+            <environment/>
+            <bindPorts></bindPorts>
+            <bindAllPorts>false</bindAllPorts>
+            <privileged>true</privileged>
+            <tty>false</tty>
+            <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+              <c class="list">
+                <string>docker-virtual.art.local:192.168.99.100</string>
+              </c>
+              <list reference="../c"/>
+            </extraHosts>
+          </dockerTemplateBase>
+          <removeVolumes>false</removeVolumes>
+          <pullStrategy>PULL_LATEST</pullStrategy>
+        </com.nirima.jenkins.plugins.docker.DockerTemplate>
       </templates>
-      <serverUrl>tcp://192.168.99.101:2376</serverUrl>
+      <serverUrl>tcp://jenkins-slave-1:2376</serverUrl>
       <connectTimeout>0</connectTimeout>
       <readTimeout>0</readTimeout>
       <version></version>
