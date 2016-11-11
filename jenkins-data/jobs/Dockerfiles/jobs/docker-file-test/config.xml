@@ -1,37 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.7">
-  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>pipelineType</name>
-          <description>Select type of your pipeline</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>Bower component</string>
-              <string>Microservice App</string>
-              <string>Microservice Arq</string>
-              <string>SPA</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>pipelineName</name>
-          <description>Name of the repository</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>pipelinePath</name>
-          <description>Path were you want put your pipeline</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>gitURL</name>
-          <description>URL for clone your repository</description>
-          <defaultValue></defaultValue>
+          <description></description>
+          <defaultValue>https://github.com/francescmorales/Dockerfiles.git</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -56,7 +33,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>GeneratorPipeline/jenkinsfile</scriptPath>
+    <scriptPath>Dockerfiles/jenkinsfile</scriptPath>
   </definition>
   <triggers/>
 </flow-definition>
