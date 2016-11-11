@@ -35,7 +35,10 @@ services:
     artifactory-registry:
         image: jfrog-docker-reg2.bintray.io/jfrog/artifactory-registry:latest
         volumes:
-        - /docker-workspaces/artifactory:/artifactory
+        - /docker-workspaces/artifactory/etc:/var/opt/jfrog/artifactory/etc
+        - /docker-workspaces/artifactory/data:/var/opt/jfrog/artifactory/data
+        - /docker-workspaces/artifactory/backup:/var/opt/jfrog/artifactory/backup
+        - /docker-workspaces/artifactory/logs:/var/opt/jfrog/artifactory/logs
         ports:
         - "8081:8081"
         - "443:443"
