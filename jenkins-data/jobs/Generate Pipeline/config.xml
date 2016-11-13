@@ -15,6 +15,7 @@
               <string>Microservice App</string>
               <string>Microservice Arq</string>
               <string>SPA</string>
+              <string>Dockerfiles</string>
             </a>
           </choices>
         </hudson.model.ChoiceParameterDefinition>
