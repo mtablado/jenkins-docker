@@ -6,19 +6,6 @@
   <properties>
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
-        <hudson.model.ChoiceParameterDefinition>
-          <name>pipelineType</name>
-          <description>Select type of your pipeline</description>
-          <choices class="java.util.Arrays$ArrayList">
-            <a class="string-array">
-              <string>Bower component</string>
-              <string>Microservice App</string>
-              <string>Microservice Arq</string>
-              <string>SPA</string>
-              <string>Dockerfiles</string>
-            </a>
-          </choices>
-        </hudson.model.ChoiceParameterDefinition>
         <hudson.model.StringParameterDefinition>
           <name>pipelineName</name>
           <description>Name of the repository</description>
@@ -36,6 +23,16 @@
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
+    <EnvInjectJobProperty plugin="envinject@1.93.1">
+      <info>
+        <propertiesContent>pipelineType=Micoservice Arq</propertiesContent>
+        <loadFilesFromMaster>false</loadFilesFromMaster>
+      </info>
+      <on>true</on>
+      <keepJenkinsSystemVariables>true</keepJenkinsSystemVariables>
+      <keepBuildVariables>true</keepBuildVariables>
+      <overrideBuildParameters>false</overrideBuildParameters>
+    </EnvInjectJobProperty>
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
       <triggers/>
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
