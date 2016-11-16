@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.7">
+  <actions/>
   <description></description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty/>
     <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.2">
-      <projectUrl>https://github.com/spring-projects/spring-boot.git/</projectUrl>
+      <projectUrl>https://github.com/mtablado/super-simple/</projectUrl>
       <displayName></displayName>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
@@ -15,13 +16,25 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.19">
     <script>node(&apos;maven-image-builder&apos;) {
     stage(&apos;Clone repository and look for test project&apos;) {
-        git &apos;https://github.com/spring-projects/spring-boot.git&apos;
-        sh &apos;&apos;&apos;cd spring-boot-samples/spring-boot-sample-simple&apos;&apos;&apos;
+        git &apos;https://github.com/mtablado/super-simple&apos;
     }
     stage(&apos;Maven compile&apos;) {
-        sh &apos;&apos;&apos;mvn compile&apos;&apos;&apos;
+        sh &apos;&apos;&apos;
+        ls -lia /home/jenkins/.m2
+        mvn clean install&apos;&apos;&apos;
     }
-    
+    stage(&apos;Deploy_Artifact&apos;){
+        sh &apos;&apos;&apos;
+		wget http://192.168.99.100:8081/artifactory/Dockerfiles/Arq-Dockerfiles/Dockerfile
+		docker build --build-arg MICRO=&quot;target/jpmorgan-super-simple-0.1.0-SNAPSHOT.jar&quot; . -t docker-virtual.art.local/alicante-ms
+		docker login -u ci_user -p 4rt1f4ct0ry docker-virtual.art.local
+		docker push docker-virtual.art.local/alicante-ms
+		&apos;&apos;&apos;
+    }
+    stage(&apos;Deploy_to_Dev&apos;){
+        echo &apos;Pending...&apos;     
+    }
+
 }</script>
     <sandbox>true</sandbox>
   </definition>

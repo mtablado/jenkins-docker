@@ -5,6 +5,10 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.jenkinsci.plugins.workflow.job.properties.DisableConcurrentBuildsJobProperty/>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.2">
+      <projectUrl>https://github.com/rbofarull/testapp/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
     <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
       <triggers/>
     </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
@@ -12,9 +16,43 @@
   <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.19">
     <script>node(&apos;spa-image-builder&apos;) {
     stage(&apos;Check installed packages&apos;) {
-        sh &apos;&apos;&apos;npm --version
+        sh &apos;&apos;&apos;
+        ls -lia /usr/bin/node
+        whoami
+        which npm
+        npm --version
+
+        which nodejs 
+        node --version
+
+        which bower
+        bower --version
+
         npm config ls -l
+        ls -lia /home/jenkins/.npmrc
+        cat /home/jenkins/.npmrc
         bower --version&apos;&apos;&apos;
+    }
+    stage(&apos;Git clone repository&apos;) {
+        git &apos;https://github.com/rbofarull/testapp&apos;
+    }
+    stage(&apos;Compile&apos;) {
+        sh &apos;&apos;&apos;
+        npm install
+        bower install
+        &apos;&apos;&apos;
+    }
+    stage(&apos;Unit tests&apos;) {
+        sh &apos;&apos;&apos;clean:reports
+        karma:unit&apos;&apos;&apos;
+    }
+    stage(&apos;Quality checks&apos;) {}
+    stage(&apos;Publish Artifactory&apos;) {
+        sh &apos;&apos;&apos;
+        docker login -u admin -p password docker-virtual.art.local
+        docker build . -t docker-virtual.art.local/spa-builder-test
+        docker push docker-virtual.art.local/spa-builder-test
+        &apos;&apos;&apos;
     }
 
 }</script>
