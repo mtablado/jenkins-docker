@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.7">
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.22.2">
+      <projectUrl>https://github.com/mtablado/spa-image-builder.git/</projectUrl>
+      <displayName></displayName>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers>
+        <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.22.2">
+          <spec></spec>
+        </com.cloudbees.jenkins.GitHubPushTrigger>
+      </triggers>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.19">
+    <script>node(&apos;docker-slave&apos;) {
+    stage(&apos;git pull&apos;) {
+        git branch: &apos;develop&apos;, url: &apos;https://github.com/mtablado/spa-image-builder.git&apos;
+    }
+    stage(&apos;Docker build&apos;) {
+        sh &apos;&apos;&apos;docker build --build-arg ARTIFACTORY_AUTH_KEY=miguel --build-arg ARTIFACTORY_BASE_URL=http://192.168.99.100:8081/artifactory . -t docker-virtual.art.local/spa-image-builder:latest&apos;&apos;&apos;
+    }
+    stage(&apos;Docker login&apos;) {
+        sh &apos;&apos;&apos;docker login -u admin -p password docker-virtual.art.local&apos;&apos;&apos;
+    }
+    stage(&apos;Tag image with v1 version&apos;) {
+        sh &apos;&apos;&apos;docker tag docker-virtual.art.local/spa-image-builder docker-virtual.art.local/spa-image-builder:v1&apos;&apos;&apos;
+    }
+    stage(&apos;Push image to artifactory&apos;) {
+        sh &apos;&apos;&apos;docker push docker-virtual.art.local/spa-image-builder&apos;&apos;&apos;
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>
