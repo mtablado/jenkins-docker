@@ -21,11 +21,21 @@
           <description>URL for clone your repository</description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>GroupID</name>
+          <description>Group of artifact</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>ArtifactID</name>
+          <description>Name of artifact</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
     <EnvInjectJobProperty plugin="envinject@1.93.1">
       <info>
-        <propertiesContent>pipelineType=Micoservice Arq</propertiesContent>
+        <propertiesContent>pipelineType=Microservice App</propertiesContent>
         <loadFilesFromMaster>false</loadFilesFromMaster>
       </info>
       <on>true</on>
