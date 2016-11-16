@@ -14,15 +14,24 @@ RUN mkdir -p /usr/share/jenkins/ref/
 #RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
 
 #adding predefined plugins
-COPY "$environment/plugins" /usr/share/jenkins/ref/plugins
+COPY "commons/plugins" /usr/share/jenkins/ref/plugins
 
 #adding predefined user admin
-COPY "$environment/users" /usr/share/jenkins/ref/users
+COPY "commons/users" /usr/share/jenkins/ref/users
 
 #adding predefined jobs
-COPY "$environment/jobs" /usr/share/jenkins/ref/jobs
+COPY "commons/jobs" /usr/share/jenkins/ref/jobs
 
-#adding predefined config
+#adding specific plugins
+#COPY "$environment/plugins" /usr/share/jenkins/ref/plugins
+
+#adding specific users
+#COPY "$environment/users" /usr/share/jenkins/ref/users
+
+#adding specific jobs
+#COPY "$environment/jobs" /usr/share/jenkins/ref/jobs
+
+#adding environment config
 COPY "$environment/config.xml" /usr/share/jenkins/ref/config.xml
 COPY "$environment/hudson.plugins.git.GitSCM.xml" /usr/share/jenkins/ref/hudson.plugins.git.GitSCM.xml
 COPY "$environment/org.jfrog.hudson.ArtifactoryBuilder.xml" /usr/share/jenkins/ref/org.jfrog.hudson.ArtifactoryBuilder.xml
