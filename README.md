@@ -29,7 +29,8 @@ DOCKER_HOST='-H tcp://0.0.0.0:2376'
 DOCKER_STORAGE=aufs
 DOCKER_TLS=no
 SERVERKEY=/var/lib/boot2docker/server-key.pem
-SERVERCERT=/var/lib/boot2docker/server.pem```
+SERVERCERT=/var/lib/boot2docker/server.pem
+```
 
 After adding the insecure data you may restart your docker host (do it from virtualbox instead of with docker-machine commands).
 #### Connections
